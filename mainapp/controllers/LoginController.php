@@ -1,9 +1,10 @@
 <?php
 require_once __DIR__.'/../models/User.php';
+require_once __DIR__.'/../utils/db.php';
 class LoginController {
     public function login() {
         session_start();
-        $db = new PDO('mysql:host=localhost;dbname=t-service', 'root', '');
+        $db = getPDO();
         $user = new User($db);
         $message = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

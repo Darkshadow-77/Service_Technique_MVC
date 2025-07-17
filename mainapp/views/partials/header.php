@@ -1,5 +1,6 @@
 <?php 
 require_once __DIR__.'/../../utils/session_helper.php';
+require_once __DIR__.'/../../utils/db.php';
 if (!safe_session_start()) {
     handle_session_error();
     exit;
@@ -21,7 +22,7 @@ if (!safe_session_start()) {
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php
                 // Connexion à la base pour récupérer les infos utilisateur
-                $db = new PDO('mysql:host=localhost;dbname=t-service', 'root', '');
+                $db = getPDO();
                 $stmt = $db->prepare('SELECT surname, firstname, email, domain FROM users WHERE id = ?');
                 $stmt->execute([$_SESSION['user_id']]);
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);

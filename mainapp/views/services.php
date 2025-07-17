@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__.'/../utils/db.php';
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=t-service", "root", "");
+    $pdo = getPDO();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     $sql = "SELECT* FROM services";
@@ -32,7 +33,7 @@ try {
         <h1 class="tre_pg_srv">
             <span>🔧 Nos Services ⚙️</span>
         </h1>
-        <?php if (!empty($services)) : foreach($services as $service): ?>
+        <?php if (!empty($result)) : foreach($result as $service): ?>
         <section class="srv_pr_bcp">
             <div class="srv_des_box">
             <h2 class="tre_srv"><?= htmlspecialchars($service['nom']) ?></h2>

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__.'/../utils/db.php';
 class ContactController {
     public function show() {
         $message = '';
@@ -6,7 +7,7 @@ class ContactController {
             if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['message'])) {
                 $message = "Tous les champs sont obligatoires.";
             } else {
-                $db = new PDO('mysql:host=localhost;dbname=t-service', 'root', '');
+                $db = getPDO();
                 $stmt = $db->prepare("INSERT INTO messages (nom, email, message) VALUES (?, ?, ?)");
                 $ok = $stmt->execute([
                     $_POST['name'],

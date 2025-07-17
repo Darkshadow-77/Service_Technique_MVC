@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__.'/../models/Publication.php';
+require_once __DIR__.'/../utils/db.php';
 class PublicationController {
     public function list() {
-        $db = new PDO('mysql:host=localhost;dbname=t-service', 'root', '');
+        $db = getPDO();
         $publication = new Publication($db);
         $publications = $publication->getAll();
         $message = '';
@@ -18,7 +19,7 @@ class PublicationController {
             header('Location: index.php?page=connexion');
             exit;
         }
-        $db = new PDO('mysql:host=localhost;dbname=t-service', 'root', '');
+        $db = getPDO();
         $publication = new Publication($db);
         $message = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
